@@ -9,23 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DataFacade extends Application {
-    private Map<String, Integer> pref = new HashMap<String, Integer>() {
-        {// default values
-            pref.put("pin", -1);
-            pref.put("ec", -1);
-            pref.put("alarm_duration", 5);
-            pref.put("indoor_ecr", 0);
-            pref.put("outdoor_ecr", 0);
-            pref.put("no_disturb_time_start", 20);
-            pref.put("no_disturb_time_end", 8);
-            pref.put("indoor_timer", 300);
-            pref.put("outdoor_timer", 0);
-            pref.put("volume_adjust", 1);
-            pref.put("volume_out", 100);
-            pref.put("volume_in", 20);
-            pref.put("internet_adjust", 1);
-        }
-    };
+    private Map<String, Integer> pref = new HashMap<String, Integer>();
     private SharedPreferences settings;
     private SharedPreferences.Editor editor;
 
@@ -34,7 +18,25 @@ public class DataFacade extends Application {
         super.onCreate();
         settings = getSharedPreferences(getResources().getString(R.string.config_filename), 0);
         editor = settings.edit();
+        mapInit();
         readAll();
+    }
+
+    private void mapInit() {
+        // default values
+        pref.put("pin", -1);
+        pref.put("ec", -1);
+        pref.put("alarm_duration", 5);
+        pref.put("indoor_ecr", 0);
+        pref.put("outdoor_ecr", 0);
+        pref.put("no_disturb_time_start", 20);
+        pref.put("no_disturb_time_end", 8);
+        pref.put("indoor_timer", 300);
+        pref.put("outdoor_timer", 0);
+        pref.put("volume_adjust", 1);
+        pref.put("volume_out", 100);
+        pref.put("volume_in", 20);
+        pref.put("internet_adjust", 1);
     }
 
     private int readInt(String key) {

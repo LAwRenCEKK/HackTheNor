@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+    <PreferenceCategory
+        android:key="ecr"
+        android:title="Emergency Contact Reminder">
+        <CheckBoxPreference
+            android:id="@+id/indoor_ecr"
+            android:key="indoor_ecr"
+            android:summary=""
+            android:title="这相当于一个CheckBox" />
+        <CheckBoxPreference
+            android:key="prefCheckBoxTwo"
+            android:summaryOff="没选中"
+            android:summaryOn="选中了"
+            android:title="还可以设置summary" />
+        <CheckBoxPreference
+            android:key="TestCheckBoxTwo"
+            android:title="testsummary" />
+        <EditTextPreference
+            android:key="prefEditText"
+            android:summary="我是EditText的一个summary"
+            android:title="这相当于一个EditText" />
+        <ListPreference
+            android:key="prefList"
+            android:title="这相当于一个List表" />
+
+        <Preference
+            android:enabled="false"
+            android:key="up_time"
+            android:persistent="false"
+            android:shouldDisableView="false"
+            android:summary="hh:min:sec"
+            android:title="Up time" />
+
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="prefCategoryTwo"
+        android:title="Inactive" >
+        <MultiSelectListPreference
+            android:key="prefMultiSelect"
+            android:title="这相当于一个MultiSelect"/>
+        <SwitchPreference
+            android:key="prefSwitch"
+            android:title="这相当于一个Switch"
+            android:switchTextOn="switchTextOn选中了"
+            android:switchTextOff="switchTextOff没选中"
+            android:summaryOn="summaryOn选中了"
+            android:summaryOff="summaryOff没选中"
+            android:shadowColor="#0df10d"/>
+        <RingtonePreference
+            android:key="prefRingtone"
+            android:title="这相当于一个"
+            android:summary="请选择铃声"
+            android:icon="@mipmap/ic_launcher_round"/>
+    </PreferenceCategory>
+</PreferenceScreen>
