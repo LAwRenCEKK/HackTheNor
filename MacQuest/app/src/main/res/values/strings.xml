@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">MacQuest</string>
+    <string name="channel_name">myc</string>
+    <string name="channel_description">mydes</string>
 
 
 </resources>
