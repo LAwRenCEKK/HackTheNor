@@ -1,11 +1,14 @@
 package com.mcmaster.wiser.idyll.view;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.media.AudioManager;
 import android.media.RingtoneManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
@@ -13,18 +16,18 @@ import android.widget.Toast;
 import com.mcmaster.wiser.idyll.R;
 import com.mcmaster.wiser.idyll.detection.iodetection.IODetectionHandler;
 
-import java.util.Random;
-
 
 public class MainActivity extends AppCompatActivity {
     private IODetectionHandler ioDetectionHandler;
     public static boolean isOutdoor = true;
+    private NotificationManager notificationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final AudioManager mobilemode = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
+        notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
         ioDetectionHandler = new IODetectionHandler(this);
         ioDetectionHandler.setOnIOChangeListener(new IODetectionHandler.OnIOChangeListener() {
             @Override
@@ -37,7 +40,13 @@ public class MainActivity extends AppCompatActivity {
         startService(intent);
     }
 
+
     public void changeMode(boolean isout, AudioManager mobilemode){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
+                && !notificationManager.isNotificationPolicyAccessGranted()) {
+            Intent intent = new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+            this.startActivity(intent);
+        }
         if (isout){
             Toast.makeText(getApplicationContext(),"Out max",Toast.LENGTH_SHORT).show();
             mobilemode.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
