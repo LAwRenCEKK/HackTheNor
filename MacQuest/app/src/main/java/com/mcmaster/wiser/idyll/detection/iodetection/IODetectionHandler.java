@@ -799,7 +799,7 @@ public class IODetectionHandler implements SensorEventListener {
     }
 
 
-    public void main() {
+    public boolean main() {
         long timestamp = System.currentTimeMillis();
         //Main function
         if (flag) {
@@ -846,6 +846,7 @@ public class IODetectionHandler implements SensorEventListener {
             }
             out = isOut;
         }
+        return out;
 //        Toast.makeText(mContext.getApplicationContext(), Boolean.toString(out), Toast.LENGTH_SHORT).show();
 
     }
