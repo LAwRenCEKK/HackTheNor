@@ -1,4 +1,4 @@
-package com.mcmaster.wiser.idyll.detection.iodetection.classifier;
+package com.mcmaster.wiser.idyll.model.iodetection.classifier;
 
 import java.util.ArrayList;
 
