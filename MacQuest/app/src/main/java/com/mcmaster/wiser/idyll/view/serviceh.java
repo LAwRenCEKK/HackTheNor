@@ -3,21 +3,17 @@ package com.mcmaster.wiser.idyll.view;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.media.AudioManager;
-import android.os.Build;
 import android.os.IBinder;
-import android.provider.Settings;
-import android.support.v4.app.NotificationCompat;
+
 import android.util.Log;
 
 import com.mcmaster.wiser.idyll.R;
-import com.mcmaster.wiser.idyll.detection.iodetection.IODetectionHandler;
+import com.mcmaster.wiser.idyll.model.iodetection.IODetectionHandler;
 
 
 
@@ -124,16 +120,6 @@ public class serviceh extends Service {
                 // Issue the notification.
             mNotificationManager.notify(1, notification);
         }
-//        Notification notification = new NotificationCompat.Builder(this, "chat")
-//                .setAutoCancel(true)
-//                .setContentTitle("收到聊天消息")
-//                .setContentText("今天晚上吃什么")
-//                .setWhen(System.currentTimeMillis())
-//                .setSmallIcon(R.mipmap.ic_launcher)
-//                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
-//                //在build()方法之前还可以添加其他方法
-//                .build();
-//        manager.notify(1, notification);
     }
 
     public void changeMode(boolean isout, AudioManager mobilemode){

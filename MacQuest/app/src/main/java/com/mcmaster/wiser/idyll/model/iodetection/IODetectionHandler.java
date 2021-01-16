@@ -1,4 +1,4 @@
-package com.mcmaster.wiser.idyll.detection.iodetection;
+package com.mcmaster.wiser.idyll.model.iodetection;
 
 import android.Manifest;
 import android.annotation.TargetApi;
@@ -22,7 +22,7 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.mcmaster.wiser.idyll.detection.iodetection.classifier.ClassifyHandler;
+import com.mcmaster.wiser.idyll.model.iodetection.classifier.ClassifyHandler;
 
 import java.lang.reflect.Method;
 import java.util.Calendar;
