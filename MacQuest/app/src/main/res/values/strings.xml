@@ -4,15 +4,13 @@
 
     <string name="timer_manual_start">Start a timer</string>
     <string name="timer_manual_stop"></string>
-    <string name="detect_header">Detected:</string>
-    <string name="status_i">indoor</string>
-    <string name="status_o">outdoor</string>
+    <string name="detect_header">detected</string>
+    <string name="status_i">Indoor</string>
+    <string name="status_o">Outdoor</string>
     <string name="ECR">Emergency Contact Reminder (ECR) mode</string>
     <string name="ECR_description">Reminder alarm here need correctly enter PIN to turn off. If fail to turn off in time, a message with current location will be sent to emergency contact.</string>
     <string name="pin">Personal Identification Number (PIN)</string>
     <string name="pin_description">Used to turn off the reminder under ECR mode.</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <string name="emergency_notification">You did not entered the correct PIN. We are concerned for your personal safety and have sent a text message to your registered emergency contact.</string>
 
 </resources>
