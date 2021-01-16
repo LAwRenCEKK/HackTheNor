@@ -2,15 +2,11 @@ package com.mcmaster.wiser.idyll.view;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.media.AudioManager;
-import android.media.RingtoneManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.mcmaster.wiser.idyll.R;
