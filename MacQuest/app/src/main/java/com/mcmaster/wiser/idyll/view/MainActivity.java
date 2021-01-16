@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
             mobilemode.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
             mobilemode.setStreamVolume(AudioManager.STREAM_RING,mobilemode.getStreamMaxVolume(AudioManager.STREAM_RING),0);
         }
-        else{
+        else if(mobilemode.getRingerMode() != AudioManager.RINGER_MODE_SILENT){
             Toast.makeText(getApplicationContext(),"Inside viberate",Toast.LENGTH_SHORT).show();
             mobilemode.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
         }
