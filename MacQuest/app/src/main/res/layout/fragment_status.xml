@@ -39,6 +39,8 @@
             android:maxLines="1"
 
             android:text="@string/status_i" />
+
+
     </LinearLayout>
 
 </FrameLayout>

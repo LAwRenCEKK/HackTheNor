@@ -7,9 +7,6 @@ import weka.core.DenseInstance;
 import weka.core.Instance;
 import weka.core.Instances;
 
-/**
- * Created by steve on 2017-06-18.
- */
 
 public class ClassifyHandler {
 

@@ -33,9 +33,6 @@ import static java.lang.Math.pow;
 import static java.lang.Math.sin;
 import static java.lang.Math.sqrt;
 
-/**
- * Created by steve on 2017-06-27.
- */
 
 public class IODetectionHandler implements SensorEventListener {
 
@@ -653,25 +650,6 @@ public class IODetectionHandler implements SensorEventListener {
     }
 
 
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-        switch (event.sensor.getType()) {
-            case Sensor.TYPE_MAGNETIC_FIELD:
-                Mag = event.values.clone();
-                MagAv = sqrt(pow(Mag[0], 2) + pow(Mag[1], 2) + pow(Mag[2], 2));
-                break;
-            case Sensor.TYPE_LIGHT:
-                light = event.values[0];
-                break;
-        }
-//        Toast.makeText(mContext.getApplicationContext(),"
-//        ",Toast.LENGTH_SHORT).show();
-
-        if (System.currentTimeMillis() - t >= 500) {
-            main(); //Call the main function
-            t = System.currentTimeMillis();
-        }
-    }
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
@@ -880,5 +858,26 @@ public class IODetectionHandler implements SensorEventListener {
         public void onIOChange(boolean isOut);
     }
 
+
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        switch (event.sensor.getType()) {
+            case Sensor.TYPE_MAGNETIC_FIELD:
+                Mag = event.values.clone();
+                MagAv = sqrt(pow(Mag[0], 2) + pow(Mag[1], 2) + pow(Mag[2], 2));
+                break;
+            case Sensor.TYPE_LIGHT:
+                light = event.values[0];
+                break;
+        }
+//        Toast.makeText(mContext.getApplicationContext(),"
+//        ",Toast.LENGTH_SHORT).show();
+
+        if (System.currentTimeMillis() - t >= 500) {
+            main(); //Call the main function
+            t = System.currentTimeMillis();
+        }
+    }
 
 }
