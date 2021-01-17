@@ -9,38 +9,55 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="200dp">
 
-        <TextView
-            android:id="@+id/textview_detect"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:autoSizeMaxTextSize="30dp"
-            android:autoSizeMinTextSize="5dp"
-            android:autoSizeTextType="uniform"
-            android:gravity="bottom|center"
-            android:maxLines="1"
+            android:layout_height="match_parent"
+            android:background="#D6D3D0"
+            android:orientation="vertical">
 
-            android:text="@string/detect_header" />
+            <TextView
+                android:id="@+id/status_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:autoSizeMaxTextSize="100dp"
+                android:autoSizeMinTextSize="50dp"
+                android:autoSizeTextType="uniform"
+                android:gravity="bottom|center"
+                android:maxLines="1"
 
-        <TextView
-            android:id="@+id/status_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:autoSizeMaxTextSize="100dp"
-            android:autoSizeMinTextSize="50dp"
-            android:autoSizeTextType="uniform"
-            android:gravity="center|top"
-            android:maxLines="1"
+                android:shadowColor="#D9D1FF"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="10"
 
-            android:text="@string/status_i" />
+                android:text="@string/status_i"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/note_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:autoSizeMaxTextSize="30dp"
+                android:autoSizeMinTextSize="5dp"
+                android:autoSizeTextType="uniform"
+                android:gravity="center|top"
+                android:maxLines="1"
+
+                android:shadowColor="#ABA7BA"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="0"
+                android:text="@string/detect_header"
+                android:textColor="#A3A29D" />
 
 
-    </LinearLayout>
+        </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
 
 </FrameLayout>

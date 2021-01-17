@@ -6,9 +6,11 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
@@ -102,9 +104,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-    Intent intent = new Intent(this, serviceh.class);
-    startService(intent);
-
+        Intent intent = new Intent(this, serviceh.class);
+        startService(intent);
+        setButtonActions();
     }
 
 
@@ -146,6 +148,51 @@ public class MainActivity extends AppCompatActivity {
             ioDetectionHandler.onStop();
         }
     }
+
+    private void setButtonActions() {
+        ((FloatingActionButton) findViewById(R.id.button_setting))
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(MainActivity.this,
+                                SettingActivity.class);
+                        startActivity(intent);
+                    }
+                });
+
+        ((FloatingActionButton) findViewById(R.id.button_alarm))
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        TimePickerDialog time = new TimePickerDialog(MainActivity.this,
+                                R.style.Float,
+                                new TimePickerDialog.OnTimeSetListener() {
+                                    @Override
+                                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                                        // todo
+                                    }
+                                },
+                                0, 30, true
+                        ) {
+                            {
+                                setTitle("Timer Duration, hour:minute");
+                            }
+                        };
+                        time.show();
+                    }
+                });
+
+        ((FloatingActionButton) findViewById(R.id.button_stop_alarm2))
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(MainActivity.this,
+                                ReminderActivity.class);
+                        startActivity(intent);
+                    }
+                });
+    }
+
 
     @Override
     protected void onPause() {

@@ -48,11 +48,11 @@ public class serviceh extends Service {
                         Log.i("infomationHaha", tick + "");
                         tick++;
 
-                        if ((tick>dur)&(ecrEnabled)){
-                            // Sending msg to the emergency contact
-                            ecrEnabled = false;
-                            sendSMSS();
-                        }
+//                        if ((tick>dur)&(ecrEnabled)){
+//                            // Sending msg to the emergency contact
+//                            ecrEnabled = false;
+//                            sendSMSS();
+//                        }
                         if ((tick > 200) & (isOutdoor)) {
                             tick = 0;
                             pushNotification("Be Safe","Practice Social Distancing");

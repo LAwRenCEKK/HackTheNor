@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient"
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
@@ -21,13 +21,38 @@
                 android:id="@+id/status"
                 android:name="com.mcmaster.wiser.idyll.presenter.StatusFragment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginTop="60dp"
                 android:layout_weight="2" />
+
+            <fragment
+                android:id="@+id/reminder_countdown"
+                android:name="com.mcmaster.wiser.idyll.presenter.CountDownFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="2">
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/button_stop_alarm2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginBottom="80dp"
+                    android:clickable="true"
+                    android:scaleX="3"
+                    android:scaleY="3"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@android:drawable/ic_lock_power_off" />
 
                 <android.support.design.widget.FloatingActionButton
                     android:id="@+id/button_setting"
