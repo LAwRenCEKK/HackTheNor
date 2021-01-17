@@ -35,16 +35,19 @@ As configured, user can open an **auto periodic reminder** when they stay indoor
 - Remind users to *go out for some exercise if indoors*
 - Remind users to *keep social distancing if outdoors*
 
+#### No-Disturb Setting:
+- **Smart**: Will not try to wake up a user and ask him/her to go out for a walk when the user is sleeping at night!
+
 ### 3. Reminder++: Emergency Contact Mode
 If user have registered his/her emergency contact number, this app can provide below services to **save them from potential danger.**
 - When the reminder rings, the user need to **enter the correct PIN** to turn off the reminder alarm
-- **Send SOS message & current location to emergency contact**, If one of the following 2 things happens, *which indicates that the person is highly likely in trouble, *
+- **Send SOS message & current location to emergency contact**, If one of the following 2 things happens, *which indicates that the person is highly likely in trouble,*
 	- if no correct PIN has been entered in 5 min (configurable)
 	- if trying to leave this app interface without entering correct PIN (including turn the phone off)
 
 #### Example use cases:
 - **Indoor**: *Especially suitable for people with potential risk of sudden illness and living alone*
-	- For example, some old people live alone can have sudden heart attack, cerebral infarction and etc. A timely SOS message can buy them valuable time to resuscitate a acute illness.
+	- For example, some old people live alone can have sudden heart attack, cerebral infarction and etc. A timely SOS message can buy them valuable time to resuscitate an acute illness.
 - **Outdoor**: *Especially suitable for people who have to often pass through dangerous areas alone*
 	- For example, generally people are always worried about walking at night in empty, accident-prone streets. 
 	- Some international students who lives far from family also have this concerns. 
