@@ -39,13 +39,14 @@ If user have registered his/her emergency contact number, this app can provide b
 		- For example, many females are worried about walking alone on the street in the night. Some international students who lives far from family also have similar concerns. 
 		- Also, the PIN function help user's family, friends and polices to keep track of the situation if something bad happens, such as kidnapping, because the bad guy cannot turn off the alarm correctly.
 		
+
 ## Screenshots
-![[Screenshot_1610895773.png]]
-![[Screenshot_1610895885.png]]
-![[Screenshot_1610895916.png]]
-![[Screenshot_1610895923.png]]
-![[Screenshot_1610895935.png]]
-![[Screenshot_1610896331.png]]
+![](Screenshot_1610895773.png)
+![](Screenshot_1610895885.png)
+![](Screenshot_1610895916.png)
+![](Screenshot_1610895923.png)
+![](Screenshot_1610895935.png)
+![](Screenshot_1610896331.png)
 
 
 ## What's next for MovEZ
