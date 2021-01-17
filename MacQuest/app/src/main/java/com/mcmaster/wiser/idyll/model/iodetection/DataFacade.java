@@ -5,8 +5,7 @@ import android.content.SharedPreferences;
 
 import com.mcmaster.wiser.idyll.R;
 
-import java.util.HashMap;
-import java.util.Map;
+
 
 public class DataFacade extends Application {
     private SharedPreferences settings;
