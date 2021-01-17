@@ -5,8 +5,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mcmaster.wiser.idyll.R;
+import com.mcmaster.wiser.idyll.view.MainActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,6 +49,11 @@ public class CountDownFragment extends Fragment {
         return fragment;
     }
 
+    public static CountDownFragment newInstance() {
+        CountDownFragment fragment = new CountDownFragment();
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +67,26 @@ public class CountDownFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        Toast.makeText(getContext(),"Heloooooooo",Toast.LENGTH_LONG).show();
+        View v = inflater.inflate(R.layout.fragment_count_down, container, false);
+        TextView hour = v.findViewById(R.id.hour);
+        TextView minute = v.findViewById(R.id.minute);
+        TextView second = v.findViewById(R.id.second);
+        hour.setText("20");
+        minute.setText("20");
+        second.setText("20");
+
         return inflater.inflate(R.layout.fragment_count_down, container, false);
     }
+
+//    public void countDown(TextView h,TextView m ,TextView s){
+////        TextView hour = getView().findViewById(R.id.hour);
+////        TextView minute = getView().findViewById(R.id.minute);
+////        TextView second = getView().findViewById(R.id.second);
+//
+//        h.setText("34");
+//        s.setText("34");
+//        m.setText("34");
+//
+//    }
 }
