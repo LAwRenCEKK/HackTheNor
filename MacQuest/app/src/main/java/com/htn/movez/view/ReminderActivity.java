@@ -110,18 +110,16 @@ public class ReminderActivity extends AppCompatActivity {
         //震动5秒
         vibrator.vibrate(30000);
         int duration_minutes = datafacade.getInt("alarm_duration");
-        // todo: 闹钟持续执行这么多分钟之后开始调用stopAlarm();
     }
 
     private void stopAlarm() {
-        // todo 停止播放铃声
         vibrator.cancel();
     }
 
 
     private boolean needPIN() {
-        // todo: 根据提取到的preference进行逻辑判断是否需要pin
-        return true;
+        // todo: more accurate check
+        return datafacade.getInt("pin")!=-1;
     }
 
     private void verifyPIN() {
