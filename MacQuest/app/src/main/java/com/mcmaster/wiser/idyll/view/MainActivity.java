@@ -120,6 +120,16 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+        ((FloatingActionButton) findViewById(R.id.button_stop_alarm2))
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(MainActivity.this,
+                                ReminderActivity.class);
+                        startActivity(intent);
+                    }
+                });
+
         Intent intent = new Intent(this, serviceh.class);
         startService(intent);
 //        setButtonActions();
@@ -254,16 +264,25 @@ public class MainActivity extends AppCompatActivity {
         int correntMin = rightNow.get(Calendar.MINUTE);
         int correntSec = rightNow.get(Calendar.SECOND);
 
+
+
         if (duration <= 0) {
             hFixed = correntHour;
             mFixed = correntMin;
             sFixed = correntSec;
         }
 
+        if ((60 - correntSec)==1){
+            Intent intent = new Intent(MainActivity.this,
+                    ReminderActivity.class);
+            startActivity(intent);
+        }
+
         if (duration > 0) {
             H.setText((Math.floorDiv(duration,60)-correntHour+hFixed) + "");
             M.setText((duration%60 - correntMin + mFixed) + "");
-            S.setText((60 - correntSec + sFixed) + "");
+            S.setText((60 - correntSec) + "");
+
         }
     }
 
