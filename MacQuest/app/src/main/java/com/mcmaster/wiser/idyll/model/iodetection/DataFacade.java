@@ -32,8 +32,8 @@ public class DataFacade extends Application {
         pref.put("outdoor_ecr", 0);
         pref.put("no_disturb_time_start", 20);
         pref.put("no_disturb_time_end", 8);
-        pref.put("indoor_timer", 300);
-        pref.put("outdoor_timer", 60);
+        pref.put("indoor_timer", 3000);
+        pref.put("outdoor_timer", 600);
         pref.put("volume_adjust", 1);
         pref.put("volume_out", 100);
         pref.put("volume_in", 20);
