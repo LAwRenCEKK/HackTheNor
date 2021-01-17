@@ -6,27 +6,26 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.provider.Settings;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import android.view.View;
-import android.widget.Button;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.mcmaster.wiser.idyll.R;
 import com.mcmaster.wiser.idyll.model.iodetection.IODetectionHandler;
-import com.mcmaster.wiser.idyll.view.serviceh;
+import com.mcmaster.wiser.idyll.presenter.CountDownFragment;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 
@@ -36,13 +35,22 @@ public class MainActivity extends AppCompatActivity {
     private NotificationManager notificationManager;
     public static int duration;
     private static final int SEND_SMS = 100;
+    public static TextView H;
+    public static TextView M;
+    public static TextView S;
+    int hFixed;
+    int mFixed;
+    int sFixed;
+    public static boolean ECServise;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ECServise = false;
         final AudioManager mobilemode = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
+        final TextView status = (TextView) findViewById(R.id.status_text);
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         ioDetectionHandler = new IODetectionHandler(this);
         ioDetectionHandler.setOnIOChangeListener(new IODetectionHandler.OnIOChangeListener() {
@@ -50,6 +58,12 @@ public class MainActivity extends AppCompatActivity {
             public void onIOChange(boolean isOut) {
                 isOutdoor = isOut;
                 changeMode(isOutdoor, mobilemode);
+                if (isOutdoor){
+                    status.setText(R.string.status_o);
+                }
+                else {
+                    status.setText(R.string.status_i);
+                }
             }
         });
 
@@ -88,25 +102,47 @@ public class MainActivity extends AppCompatActivity {
                                         int diffInHour = hourOfDay - correntHour;
                                         int diffInMin = minute - correntMin;
                                         int durationInMin = diffInHour*60 + diffInMin;
-//                                        Toast.makeText(getApplicationContext(), ""+ diffInHour, Toast.LENGTH_SHORT).show();
-//                                        Toast.makeText(getApplicationContext(), ""+ diffInMin, Toast.LENGTH_SHORT).show();
-//                                        Toast.makeText(getApplicationContext(), ""+ durationInMin, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(), ""+ diffInHour, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(), ""+ diffInMin, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(), ""+ durationInMin, Toast.LENGTH_SHORT).show();
                                         duration = durationInMin;
+
+                                        H = findViewById(R.id.hour);
+                                        M = findViewById(R.id.minute);
+                                        S = findViewById(R.id.second);
+                                        H.setText(hourOfDay+"");
+                                        M.setText(minute+"");
+                                        ECServise = true;
                                     }
-                                },
-                                0, 30, true
-                        ) {
-                            {
-                                setTitle("Timer Duration, hour:minute");
-                            }
-                        };
+                                    }, 0, 30, true) {
+                            { setTitle("Timer Duration, hour:minute"); }};
                         time.show();
                     }
                 });
 
         Intent intent = new Intent(this, serviceh.class);
         startService(intent);
-        setButtonActions();
+//        setButtonActions();
+
+        Thread t = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    while (!isInterrupted()) {
+                        Thread.sleep(1000);
+                        runOnUiThread(new Runnable() {
+                            @RequiresApi(api = Build.VERSION_CODES.N)
+                            @Override
+                            public void run() {
+                                updateTextView(H,M,S);
+                            }
+                        });
+                    }
+                } catch (InterruptedException e) {
+                }
+            }
+        };
+        t.start();
     }
 
 
@@ -170,6 +206,22 @@ public class MainActivity extends AppCompatActivity {
                                     @Override
                                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                                         // todo
+                                        Calendar rightNow = Calendar.getInstance();
+                                        int correntHour = rightNow.get(Calendar.HOUR_OF_DAY);
+                                        int correntMin = rightNow.get(Calendar.MINUTE);
+                                        int diffInHour = hourOfDay - correntHour;
+                                        int diffInMin = minute - correntMin;
+                                        int durationInMin = diffInHour*60 + diffInMin;
+                                        Toast.makeText(getApplicationContext(), ""+ diffInHour, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(), ""+ diffInMin, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(), ""+ durationInMin, Toast.LENGTH_SHORT).show();
+                                        duration = durationInMin;
+
+                                        H = findViewById(R.id.hour);
+                                        M = findViewById(R.id.minute);
+                                        S  = findViewById(R.id.second);
+                                        H.setText(hourOfDay+"");
+                                        M.setText(minute+"");
                                     }
                                 },
                                 0, 30, true
@@ -193,6 +245,27 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void updateTextView(TextView H , TextView M, TextView S ) {
+
+        Calendar rightNow = Calendar.getInstance();
+        int correntHour = rightNow.get(Calendar.HOUR_OF_DAY);
+        int correntMin = rightNow.get(Calendar.MINUTE);
+        int correntSec = rightNow.get(Calendar.SECOND);
+
+        if (duration <= 0) {
+            hFixed = correntHour;
+            mFixed = correntMin;
+            sFixed = correntSec;
+        }
+
+        if (duration > 0) {
+            H.setText((Math.floorDiv(duration,60)-correntHour+hFixed) + "");
+            M.setText((duration%60 - correntMin + mFixed) + "");
+            S.setText((60 - correntSec + sFixed) + "");
+        }
+    }
 
     @Override
     protected void onPause() {

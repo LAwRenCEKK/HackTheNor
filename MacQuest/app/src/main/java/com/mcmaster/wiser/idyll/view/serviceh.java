@@ -8,12 +8,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.AudioManager;
+import android.net.wifi.WifiManager;
 import android.os.IBinder;
 import android.telephony.SmsManager;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.TextView;
+
 import com.mcmaster.wiser.idyll.R;
 import com.mcmaster.wiser.idyll.model.iodetection.IODetectionHandler;
+import com.mcmaster.wiser.idyll.model.iodetection.DataFacade;
+
+import com.mcmaster.wiser.idyll.presenter.CountDownFragment;
+
 import java.util.ArrayList;
 
 
@@ -24,7 +31,9 @@ public class serviceh extends Service {
     private IODetectionHandler ioDetectionHandler;
     public static boolean isOutdoor = true;
     public static boolean currentResult = true;
-
+    private WifiManager mWifiManager;
+    private DataFacade mDataFacade;
+    private boolean ECR;
 
 
 
@@ -37,7 +46,9 @@ public class serviceh extends Service {
     public void onCreate() {
         super.onCreate();
         final AudioManager mobilemode2 = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
-        // default emergency time
+        mWifiManager = (WifiManager) this.getSystemService(Context.WIFI_SERVICE);
+        mDataFacade = (DataFacade) getApplication();
+
         dur = 50000;
         ioDetectionHandler = new IODetectionHandler(this);
         new Thread(new Runnable() {
@@ -46,21 +57,23 @@ public class serviceh extends Service {
                 while (true) {
                     try {
                         dur = MainActivity.duration;
+                        ECR = MainActivity.ECServise;
                         Log.i("duration", dur + "");
                         Log.i("infomationHaha", tick + "");
                         tick++;
 
-//                        if ((tick>dur)&(ecrEnabled)){
-//                            // Sending msg to the emergency contact
-//                            ecrEnabled = false;
-//                            sendSMSS();
-//                        }
-                        if ((tick > 200) & (isOutdoor)) {
+                        if ((ECR)&(tick > dur)&(!isOutdoor)){
+                            sendSMSS();
+                        }
+
+                        if ((tick > mDataFacade.getInt("outdoor_timer")) & (isOutdoor)) {
                             tick = 0;
                             pushNotification("Be Safe","Practice Social Distancing");
                         }
-                        if ((tick > 200) & (!isOutdoor)) {
+
+                        if ((tick > mDataFacade.getInt("indoor_timer")) & (!isOutdoor)) {
                             tick = 0;
+                            openWifi();
                             pushNotification("Relax","Go for some exercise");
                         }
 
@@ -118,9 +131,17 @@ public class serviceh extends Service {
 
         if (isout) {
             Log.i("infomationHaha", "Out max");
+            if (mDataFacade.getInt("internet_adjust")==1){
+            closeWifi();}
             mobilemode.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
             mobilemode.setStreamVolume(AudioManager.STREAM_RING, mobilemode.getStreamMaxVolume(AudioManager.STREAM_RING), 0);
-        } else if (mobilemode.getRingerMode() != AudioManager.RINGER_MODE_SILENT) {
+
+        }
+        else if
+        (mobilemode.getRingerMode() != AudioManager.RINGER_MODE_SILENT) {
+            MainActivity.ECServise = false;
+            if (mDataFacade.getInt("internet_adjust")==1){
+                openWifi();}
             Log.i("infomationHaha", "Inside viberate");
             mobilemode.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
         }
@@ -139,6 +160,21 @@ public class serviceh extends Service {
         }
     }
 
+
+    public boolean openWifi() {
+        boolean bRet = true;
+        if (!mWifiManager.isWifiEnabled()) {
+            bRet = mWifiManager.setWifiEnabled(true);
+        }
+        return bRet;
+    }
+
+
+    public void closeWifi() {
+        if (mWifiManager.isWifiEnabled()) {
+            mWifiManager.setWifiEnabled(false);
+        }
+    }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
