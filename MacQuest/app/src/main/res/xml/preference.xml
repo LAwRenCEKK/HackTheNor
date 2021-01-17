@@ -43,7 +43,7 @@
             android:defaultValue="300"/>
         <EditTextPreference
             android:key="outdoor_timer"
-            android:title="Auto Indoor Reminder"
+            android:title="Auto Outdoor Reminder"
             android:summary="How many minutes if I stay outdoor I will receive a reminder. Set 0 to Disable auto reminder."
             android:digits="0123456789"
             android:maxLength="4"
