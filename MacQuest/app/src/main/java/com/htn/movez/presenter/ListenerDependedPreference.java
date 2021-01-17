@@ -1,9 +1,9 @@
-package com.mcmaster.wiser.idyll.presenter;
+package com.htn.movez.presenter;
 
 import android.preference.EditTextPreference;
 import android.preference.Preference;
 
-import com.mcmaster.wiser.idyll.model.iodetection.DataFacade;
+import com.htn.movez.iodetection.DataFacade;
 
 public class ListenerDependedPreference extends ListenerSaveData {
     private final Preference[] impactPrefs;

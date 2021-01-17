@@ -1,4 +1,4 @@
-package com.mcmaster.wiser.idyll.view;
+package com.htn.movez.view;
 
 import android.Manifest;
 import android.app.NotificationManager;
@@ -13,7 +13,6 @@ import android.provider.Settings;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
@@ -21,10 +20,9 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
-import com.mcmaster.wiser.idyll.R;
-import com.mcmaster.wiser.idyll.model.iodetection.IODetectionHandler;
-import com.mcmaster.wiser.idyll.presenter.CountDownFragment;
+import com.htn.movez.R;
+import com.htn.movez.iodetection.IODetectionHandler;
+import com.htn.movez.presenter.serviceh;
 
 import java.util.Calendar;
 

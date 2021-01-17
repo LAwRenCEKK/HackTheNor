@@ -1,8 +1,8 @@
-package com.mcmaster.wiser.idyll.presenter;
+package com.htn.movez.presenter;
 
 import android.preference.Preference;
 
-import com.mcmaster.wiser.idyll.model.iodetection.DataFacade;
+import com.htn.movez.iodetection.DataFacade;
 
 public class ListenerSaveData implements Preference.OnPreferenceChangeListener {
     private final DataFacade dataFacade;

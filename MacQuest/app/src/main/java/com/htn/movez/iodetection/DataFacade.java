@@ -1,9 +1,9 @@
-package com.mcmaster.wiser.idyll.model.iodetection;
+package com.htn.movez.iodetection;
 
 import android.app.Application;
 import android.content.SharedPreferences;
 
-import com.mcmaster.wiser.idyll.R;
+import com.htn.movez.R;
 
 import java.util.HashMap;
 import java.util.Map;

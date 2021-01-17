@@ -5,7 +5,7 @@
     android:id="@+id/setting_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.SettingActivity">
+    tools:context="com.htn.movez.view.SettingActivity">
 
     <ListView
         android:id="@android:id/list"

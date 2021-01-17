@@ -19,7 +19,7 @@
 
             <fragment
                 android:id="@+id/status"
-                android:name="com.mcmaster.wiser.idyll.presenter.StatusFragment"
+                android:name="com.htn.movez.presenter.StatusFragment"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="60dp"
@@ -27,7 +27,7 @@
 
             <fragment
                 android:id="@+id/reminder_countdown"
-                android:name="com.mcmaster.wiser.idyll.presenter.CountDownFragment"
+                android:name="com.htn.movez.presenter.CountDownFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />

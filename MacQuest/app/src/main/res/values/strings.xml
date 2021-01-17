@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MovEZ #todo</string>
+    <string name="app_name">MovEZ</string>
     <string name="config_filename">Preference</string>
 
     <string name="timer_manual_start">Start a timer</string>
