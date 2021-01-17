@@ -61,7 +61,7 @@ public class serviceh extends Service {
                         tick++;
 
                         if ((ECR)&(tick > dur)&(!isOutdoor)){
-                            sendSMSS();
+//                            sendSMSS();
                         }
 
                         if ((tick > mDataFacade.getInt("outdoor_timer")) & (isOutdoor)) {
