@@ -4,58 +4,121 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent">
     <PreferenceCategory
-        android:key="ecr"
-        android:title="Emergency Contact Reminder">
-        <CheckBoxPreference
-            android:id="@+id/indoor_ecr"
-            android:key="indoor_ecr"
-            android:summary=""
-            android:title="这相当于一个CheckBox" />
-        <CheckBoxPreference
-            android:key="prefCheckBoxTwo"
-            android:summaryOff="没选中"
-            android:summaryOn="选中了"
-            android:title="还可以设置summary" />
-        <CheckBoxPreference
-            android:key="TestCheckBoxTwo"
-            android:title="testsummary" />
+        android:key="reminder"
+        android:title="Reminder">
         <EditTextPreference
-            android:key="prefEditText"
-            android:summary="我是EditText的一个summary"
-            android:title="这相当于一个EditText" />
-        <ListPreference
-            android:key="prefList"
-            android:title="这相当于一个List表" />
+            android:key="no_disturb_time_start"
+            android:title="Do not disturb after"
+            android:digits="0123456789"
+            android:maxLength="2"
+            android:inputType="number"
+            android:numeric="integer"
+            android:defaultValue="20"/>
+        <EditTextPreference
+            android:key="no_disturb_time_end"
+            android:title="Do not disturb before"
+            android:digits="0123456789"
+            android:maxLength="2"
+            android:inputType="number"
+            android:numeric="integer"
+            android:defaultValue="8"/>
+        <EditTextPreference
+            android:key="alarm_duration"
+            android:title="Reminder Alarm Duration"
+            android:summary="How many minutes the reminder will keep ringing until manually turn off."
+            android:digits="0123456789"
+            android:maxLength="2"
+            android:inputType="number"
+            android:numeric="integer"
+            android:defaultValue="5"/>
 
-        <Preference
-            android:enabled="false"
-            android:key="up_time"
-            android:persistent="false"
-            android:shouldDisableView="false"
-            android:summary="hh:min:sec"
-            android:title="Up time" />
-
+        <EditTextPreference
+            android:key="indoor_timer"
+            android:title="Auto Indoor Reminder"
+            android:summary="How many minutes if I stay indoor I will receive a reminder. Set 0 to Disable auto reminder."
+            android:digits="0123456789"
+            android:maxLength="4"
+            android:inputType="number"
+            android:numeric="integer"
+            android:defaultValue="300"/>
+        <EditTextPreference
+            android:key="outdoor_timer"
+            android:title="Auto Indoor Reminder"
+            android:summary="How many minutes if I stay outdoor I will receive a reminder. Set 0 to Disable auto reminder."
+            android:digits="0123456789"
+            android:maxLength="4"
+            android:inputType="number"
+            android:numeric="integer"
+            android:defaultValue="0"/>
 
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:key="prefCategoryTwo"
-        android:title="Inactive" >
-        <MultiSelectListPreference
-            android:key="prefMultiSelect"
-            android:title="这相当于一个MultiSelect"/>
+        android:key="ecr++"
+        android:title="Reminder++: Emergency Contact Mode"
+        android:summary="For people in potential danger">
+        <EditTextPreference
+            android:key="pin"
+            android:title="Personal Identification Number (PIN)"
+            android:digits="0123456789"
+            android:maxLength="4"
+            android:inputType="number"
+            android:numeric="integer"
+            android:defaultValue="-1"/>
+        <EditTextPreference
+            android:key="ec"
+            android:title="Emergency Contact (Phone Number)"
+            android:digits="0123456789"
+            android:maxLength="12"
+            android:inputType="number"
+            android:numeric="integer"
+            android:defaultValue="-1"/>
         <SwitchPreference
-            android:key="prefSwitch"
-            android:title="这相当于一个Switch"
-            android:switchTextOn="switchTextOn选中了"
-            android:switchTextOff="switchTextOff没选中"
-            android:summaryOn="summaryOn选中了"
-            android:summaryOff="summaryOff没选中"
-            android:shadowColor="#0df10d"/>
-        <RingtonePreference
-            android:key="prefRingtone"
-            android:title="这相当于一个"
-            android:summary="请选择铃声"
-            android:icon="@mipmap/ic_launcher_round"/>
+            android:key="indoor_ecr"
+            android:summary="Especially suitable for people with potential risk of sudden illness and living alone"
+            android:title="Enable Reminder++ Indoor"
+            android:defaultValue="false"/>
+        <SwitchPreference
+            android:key="outdoor_ecr"
+            android:summary="Especially suitable for people who have to often pass through dangerous areas alone"
+            android:title="Enable Reminder++ Outdoor"
+            android:defaultValue="false"/>
+    </PreferenceCategory>
+
+
+    <PreferenceCategory
+        android:key="pc2"
+        android:title="Auto Adjust Phone"
+        android:summary="Make your life easier when you move! :)">
+
+        <SwitchPreference
+            android:key="internet_adjust"
+            android:summary="Automatically switch from wifi to mobile data when you go outside; Vice versa."
+            android:title="Enable internet auto adjustment"
+            android:defaultValue="true"/>
+        <SwitchPreference
+            android:key="volume_adjust"
+            android:summary="Automatically adjust volume depending on outdoor/indoor."
+            android:title="Enable volume auto adjustment"
+            android:defaultValue="true"/>
+        <ListPreference
+            android:key="volume_in"
+            android:title="Indoor Volume"
+            android:summary="Select the mode of indoor"
+            android:persistent="false"
+            android:entries="@array/volume_modes"
+            android:entryValues="@array/volume_modes_values"
+            android:defaultValue="1"
+            />
+        <ListPreference
+            android:key="volume_out"
+            android:title="Outdoor Volume"
+            android:summary="Select the mode of outdoor"
+            android:persistent="false"
+            android:entries="@array/volume_modes"
+            android:entryValues="@array/volume_modes_values"
+            android:defaultValue="2"
+            />
+
     </PreferenceCategory>
 </PreferenceScreen>

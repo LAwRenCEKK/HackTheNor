@@ -26,6 +26,8 @@ public class serviceh extends Service {
     public static boolean currentResult = true;
 
 
+
+
     @Override
     public IBinder onBind(Intent intent) {
         return null;

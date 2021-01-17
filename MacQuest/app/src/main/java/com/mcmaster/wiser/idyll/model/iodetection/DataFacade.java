@@ -35,8 +35,8 @@ public class DataFacade extends Application {
         pref.put("indoor_timer", 300);
         pref.put("outdoor_timer", 0);
         pref.put("volume_adjust", 1);
-        pref.put("volume_out", 100);
-        pref.put("volume_in", 20);
+        pref.put("volume_out", 2);
+        pref.put("volume_in", 1);
         pref.put("internet_adjust", 1);
     }
 
