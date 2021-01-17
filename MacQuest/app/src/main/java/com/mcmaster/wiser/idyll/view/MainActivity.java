@@ -1,14 +1,18 @@
 package com.mcmaster.wiser.idyll.view;
 
+import android.Manifest;
 import android.app.NotificationManager;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import android.view.View;
@@ -18,7 +22,7 @@ import android.widget.Toast;
 
 import com.mcmaster.wiser.idyll.R;
 import com.mcmaster.wiser.idyll.model.iodetection.IODetectionHandler;
-import com.mcmaster.wiser.idyll.presenter.serviceh;
+import com.mcmaster.wiser.idyll.view.serviceh;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -28,6 +32,9 @@ public class MainActivity extends AppCompatActivity {
     private IODetectionHandler ioDetectionHandler;
     public static boolean isOutdoor = true;
     private NotificationManager notificationManager;
+    public static int duration;
+    private static final int SEND_SMS = 100;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +50,13 @@ public class MainActivity extends AppCompatActivity {
                 changeMode(isOutdoor, mobilemode);
             }
         });
-        Intent intent = new Intent(this, serviceh.class);
-        startService(intent);
 
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            int checkCallPhonePermission = ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE);
+            if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, SEND_SMS);
+            }
+        }
 
         ((FloatingActionButton) findViewById(R.id.button_setting))
                 .setOnClickListener(new View.OnClickListener() {
@@ -70,7 +80,16 @@ public class MainActivity extends AppCompatActivity {
                                 new TimePickerDialog.OnTimeSetListener() {
                                     @Override
                                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                                        // todo
+                                        Calendar rightNow = Calendar.getInstance();
+                                        int correntHour = rightNow.get(Calendar.HOUR_OF_DAY);
+                                        int correntMin = rightNow.get(Calendar.MINUTE);
+                                        int diffInHour = hourOfDay - correntHour;
+                                        int diffInMin = minute - correntMin;
+                                        int durationInMin = diffInHour*60 + diffInMin;
+//                                        Toast.makeText(getApplicationContext(), ""+ diffInHour, Toast.LENGTH_SHORT).show();
+//                                        Toast.makeText(getApplicationContext(), ""+ diffInMin, Toast.LENGTH_SHORT).show();
+//                                        Toast.makeText(getApplicationContext(), ""+ durationInMin, Toast.LENGTH_SHORT).show();
+                                        duration = durationInMin;
                                     }
                                 },
                                 0, 30, true
@@ -82,7 +101,12 @@ public class MainActivity extends AppCompatActivity {
                         time.show();
                     }
                 });
+
+    Intent intent = new Intent(this, serviceh.class);
+    startService(intent);
+
     }
+
 
     public void changeMode(boolean isout, AudioManager mobilemode) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
@@ -132,4 +156,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
     }
+
+
+
 }
