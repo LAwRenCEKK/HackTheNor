@@ -9,23 +9,22 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.os.IBinder;
-
+import android.telephony.SmsManager;
+import android.text.TextUtils;
 import android.util.Log;
-
 import com.mcmaster.wiser.idyll.R;
 import com.mcmaster.wiser.idyll.model.iodetection.IODetectionHandler;
-
+import java.util.ArrayList;
 
 
 public class serviceh extends Service {
 
-    private int one;
-
+    private int tick;
+    private int dur;
     private IODetectionHandler ioDetectionHandler;
     public static boolean isOutdoor = true;
     public static boolean currentResult = true;
 
-    private NotificationManager notificationManager2;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -36,34 +35,39 @@ public class serviceh extends Service {
     public void onCreate() {
         super.onCreate();
         final AudioManager mobilemode2 = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
-        notificationManager2 = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-
+        // default emergency time
+        dur = 50000;
         ioDetectionHandler = new IODetectionHandler(this);
         new Thread(new Runnable() {
             @Override
             public void run() {
                 while (true) {
                     try {
-                        Log.i("infomationHaha", one + "");
-                        one++;
-                        // If one being in outdoor for more then 20s
-                        if((one>20)&(isOutdoor)){
+                        dur = MainActivity.duration;
+                        Log.i("duration", dur + "");
+                        Log.i("infomationHaha", tick + "");
+                        tick++;
 
-                            one = 0;
-                            doSomeThing();
+                        if ((tick>dur)&(ecrEnabled)){
+                            // Sending msg to the emergency contact
+                            ecrEnabled = false;
+                            sendSMSS();
+                        }
+                        if ((tick > 200) & (isOutdoor)) {
+                            tick = 0;
+                            pushNotification("Be Safe","Practice Social Distancing");
+                        }
+                        if ((tick > 200) & (!isOutdoor)) {
+                            tick = 0;
+                            pushNotification("Relax","Go for some exercise");
                         }
 
-                        // if one being in indoor for more then 30s
-                        if((one>5)&(!isOutdoor)){
-                            one = 0;
-                            doSomeThing();
-                        }
-
+                        // if the In/outdoor status changed
                         currentResult = ioDetectionHandler.main();
-                        if (isOutdoor != currentResult){
-                            one = 0;
+                        if (isOutdoor != currentResult) {
+                            tick = 0;
                             isOutdoor = currentResult;
-                            changeMode(isOutdoor,mobilemode2);
+                            changeMode(isOutdoor, mobilemode2);
                         }
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
@@ -73,79 +77,72 @@ public class serviceh extends Service {
             }
         }).start();
     }
-    public void doSomeThing(){
+
+
+    public void pushNotification(String title, String content) {
 
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        // The id of the channel.
-        String id = "my_channel_01";
-        // The user-visible name of the channel.
+        String id = "my_channel_02";
         CharSequence name = getString(R.string.channel_name);
-        // The user-visible description of the channel.
         String description = getString(R.string.channel_description);
-        int importance = NotificationManager.IMPORTANCE_LOW;
+        int importance = NotificationManager.IMPORTANCE_HIGH;
 
         NotificationChannel mChannel = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             mChannel = new NotificationChannel(id, name,importance);
             mChannel.setDescription(description);
-
-            mChannel.enableLights(true);
-            // Sets the notification light color for notifications posted to this
-            // channel, if the device supports this feature.
-            mChannel.setLightColor(Color.RED);
-
             mChannel.enableVibration(true);
-            mChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+            mChannel.enableLights(true);
+            mChannel.setLightColor(Color.RED);
+            mChannel.setVibrationPattern(new long[]{100, 200, 300, 400});
 
             mNotificationManager.createNotificationChannel(mChannel);
+            mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            String CHANNEL_ID = "my_channel_02";
 
-
-
-            mNotificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-
-            // Sets an ID for the notification, so it can be updated.
-            int notifyID = 1;
-
-            // The id of the channel.
-            String CHANNEL_ID = "my_channel_01";
-
-            // Create a notification and set the notification channel.
             Notification notification = new Notification.Builder(this)
-                    .setContentTitle("Be Safe")
-                    .setContentText("Pracrtice Social distancing")
+                    .setContentTitle(title)
+                    .setContentText(content)
                     .setSmallIcon(R.mipmap.ic_launcher)
                     .setChannelId(CHANNEL_ID)
                     .build();
-
-                // Issue the notification.
             mNotificationManager.notify(1, notification);
         }
     }
 
-    public void changeMode(boolean isout, AudioManager mobilemode){
 
+    public void changeMode(boolean isout, AudioManager mobilemode) {
         Log.i("infomationHaha", "I am changing the state");
 
-
-        if (isout){
-//            Toast.makeText(getApplicationContext(),"Out max",Toast.LENGTH_SHORT).show();
+        if (isout) {
             Log.i("infomationHaha", "Out max");
-
             mobilemode.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-            mobilemode.setStreamVolume(AudioManager.STREAM_RING,mobilemode.getStreamMaxVolume(AudioManager.STREAM_RING),0);
-        }
-        else if(mobilemode.getRingerMode() != AudioManager.RINGER_MODE_SILENT){
-//            Toast.makeText(getApplicationContext(),"Inside viberate",Toast.LENGTH_SHORT).show();
+            mobilemode.setStreamVolume(AudioManager.STREAM_RING, mobilemode.getStreamMaxVolume(AudioManager.STREAM_RING), 0);
+        } else if (mobilemode.getRingerMode() != AudioManager.RINGER_MODE_SILENT) {
             Log.i("infomationHaha", "Inside viberate");
-
             mobilemode.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
         }
     }
+
+
+    private void sendSMSS() {
+        String content = "Hello from Lawrence"; //todo: read from tempelate
+        String phone = "9059204695"; //todo: read this from property
+        if (!TextUtils.isEmpty(content) && !TextUtils.isEmpty(phone)) {
+            SmsManager manager = SmsManager.getDefault();
+            ArrayList<String> strings = manager.divideMessage(content);
+            for (int i = 0; i < strings.size(); i++) {
+                manager.sendTextMessage(phone, null, content, null, null);
+            }
+        }
+    }
+
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         return super.onStartCommand(intent, flags, startId);
     }
+
 
     @Override
     public void onDestroy() {
