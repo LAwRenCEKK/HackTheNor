@@ -66,7 +66,6 @@ public class CountDownFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        Toast.makeText(getContext(),"Heloooooooo",Toast.LENGTH_LONG).show();
         View v = inflater.inflate(R.layout.fragment_count_down, container, false);
         TextView hour = v.findViewById(R.id.hour);
         TextView minute = v.findViewById(R.id.minute);

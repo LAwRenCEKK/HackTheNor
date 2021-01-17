@@ -7,7 +7,7 @@ android {
     }
     compileSdkVersion 28
     defaultConfig {
-        applicationId 'com.mcmaster.wiser.idyll'
+        applicationId 'com.htn.movez'
         minSdkVersion 16
 
         targetSdkVersion 28
