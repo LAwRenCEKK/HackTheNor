@@ -180,19 +180,13 @@ public class MainActivity extends AppCompatActivity {
             this.startActivity(intent);
         }
         if (isout) {
-            Toast.makeText(getApplicationContext(), "Out max", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "volume changed", Toast.LENGTH_SHORT).show();
             mobilemode.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
             mobilemode.setStreamVolume(AudioManager.STREAM_RING, mobilemode.getStreamMaxVolume(AudioManager.STREAM_RING), 0);
         } else if (mobilemode.getRingerMode() != AudioManager.RINGER_MODE_SILENT) {
-            Toast.makeText(getApplicationContext(), "Inside viberate", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "volume changed", Toast.LENGTH_SHORT).show();
             mobilemode.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
         }
-    }
-
-
-    @Override
-    protected void onStart() {
-        super.onStart();
     }
 
     @Override
