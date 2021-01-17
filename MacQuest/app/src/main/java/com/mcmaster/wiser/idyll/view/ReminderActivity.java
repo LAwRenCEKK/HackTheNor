@@ -82,10 +82,6 @@ public class ReminderActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void updateTextView(TextView H , TextView M, TextView S, int t) {
 
-        Calendar rightNow = Calendar.getInstance();
-        int correntHour = rightNow.get(Calendar.HOUR_OF_DAY);
-        int correntMin = rightNow.get(Calendar.MINUTE);
-        int correntSec = rightNow.get(Calendar.SECOND);
         H.setText("00");
         M.setText((Math.floorDiv(t,60))+"");
         S.setText(t%60+"");

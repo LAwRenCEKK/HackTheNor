@@ -30,17 +30,19 @@ import java.util.Calendar;
 
 
 public class MainActivity extends AppCompatActivity {
-    private IODetectionHandler ioDetectionHandler;
+    private static final int REQUEST_READ_PHONE_STATE = 1 ;
+    public IODetectionHandler ioDetectionHandler;
     public static boolean isOutdoor = true;
     private NotificationManager notificationManager;
     public static int duration;
-    private static final int SEND_SMS = 100;
+    public static final int SEND_SMS = 100;
     public static TextView H;
     public static TextView M;
     public static TextView S;
     int hFixed;
     int mFixed;
     int sFixed;
+
     public static boolean ECServise;
 
 
@@ -73,6 +75,12 @@ public class MainActivity extends AppCompatActivity {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, SEND_SMS);
             }
         }
+        int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE);
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_READ_PHONE_STATE);
+        } else {
+            //TODO
+        }
 
         ((FloatingActionButton) findViewById(R.id.button_setting))
                 .setOnClickListener(new View.OnClickListener() {
@@ -80,9 +88,9 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         // todo: make preference activity
-//                        Intent intent = new Intent(MainActivity.this,
-//                                CountDownActivity.class);
-//                        startActivity(intent);
+                        Intent intent = new Intent(MainActivity.this,
+                                SettingActivity.class);
+                        startActivity(intent);
                     }
                 });
 
@@ -101,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
                                         int correntMin = rightNow.get(Calendar.MINUTE);
                                         int diffInHour = hourOfDay - correntHour;
                                         int diffInMin = minute - correntMin;
-                                        int durationInMin = diffInHour*60 + diffInMin;
+                                        int durationInMin = diffInHour*60*60 + diffInMin*60;
                                         Toast.makeText(getApplicationContext(), ""+ diffInHour, Toast.LENGTH_SHORT).show();
                                         Toast.makeText(getApplicationContext(), ""+ diffInMin, Toast.LENGTH_SHORT).show();
                                         Toast.makeText(getApplicationContext(), ""+ durationInMin, Toast.LENGTH_SHORT).show();
@@ -132,7 +140,16 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, serviceh.class);
         startService(intent);
-//        setButtonActions();
+
+        ((FloatingActionButton) findViewById(R.id.button_stop_alarm2))
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(MainActivity.this,
+                                ReminderActivity.class);
+                        startActivity(intent);
+                    }
+                });
 
         Thread t = new Thread() {
             @Override
@@ -144,8 +161,10 @@ public class MainActivity extends AppCompatActivity {
                             @RequiresApi(api = Build.VERSION_CODES.N)
                             @Override
                             public void run() {
-                                updateTextView(H,M,S);
-                            }
+                                if (duration > 0){
+                                updateTextView(H,M,S,duration);
+                                duration = duration - 1;
+                            }}
                         });
                     }
                 } catch (InterruptedException e) {
@@ -195,95 +214,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void setButtonActions() {
-        ((FloatingActionButton) findViewById(R.id.button_setting))
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(MainActivity.this,
-                                SettingActivity.class);
-                        startActivity(intent);
-                    }
-                });
-
-        ((FloatingActionButton) findViewById(R.id.button_alarm))
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        TimePickerDialog time = new TimePickerDialog(MainActivity.this,
-                                R.style.Float,
-                                new TimePickerDialog.OnTimeSetListener() {
-                                    @Override
-                                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                                        // todo
-                                        Calendar rightNow = Calendar.getInstance();
-                                        int correntHour = rightNow.get(Calendar.HOUR_OF_DAY);
-                                        int correntMin = rightNow.get(Calendar.MINUTE);
-                                        int diffInHour = hourOfDay - correntHour;
-                                        int diffInMin = minute - correntMin;
-                                        int durationInMin = diffInHour*60 + diffInMin;
-                                        Toast.makeText(getApplicationContext(), ""+ diffInHour, Toast.LENGTH_SHORT).show();
-                                        Toast.makeText(getApplicationContext(), ""+ diffInMin, Toast.LENGTH_SHORT).show();
-                                        Toast.makeText(getApplicationContext(), ""+ durationInMin, Toast.LENGTH_SHORT).show();
-                                        duration = durationInMin;
-
-                                        H = findViewById(R.id.hour);
-                                        M = findViewById(R.id.minute);
-                                        S  = findViewById(R.id.second);
-                                        H.setText(hourOfDay+"");
-                                        M.setText(minute+"");
-                                    }
-                                },
-                                0, 30, true
-                        ) {
-                            {
-                                setTitle("Timer Duration, hour:minute");
-                            }
-                        };
-                        time.show();
-                    }
-                });
-
-        ((FloatingActionButton) findViewById(R.id.button_stop_alarm2))
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(MainActivity.this,
-                                ReminderActivity.class);
-                        startActivity(intent);
-                    }
-                });
-    }
-
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private void updateTextView(TextView H , TextView M, TextView S ) {
+    private void updateTextView(TextView H , TextView M, TextView S, int t ) {
 
-        Calendar rightNow = Calendar.getInstance();
-        int correntHour = rightNow.get(Calendar.HOUR_OF_DAY);
-        int correntMin = rightNow.get(Calendar.MINUTE);
-        int correntSec = rightNow.get(Calendar.SECOND);
-
-
-
-        if (duration <= 0) {
-            hFixed = correntHour;
-            mFixed = correntMin;
-            sFixed = correntSec;
-        }
-
-        if ((60 - correntSec)==1){
-            Intent intent = new Intent(MainActivity.this,
-                    ReminderActivity.class);
-            startActivity(intent);
-        }
-
-        if (duration > 0) {
-            H.setText((Math.floorDiv(duration,60)-correntHour+hFixed) + "");
-            M.setText((duration%60 - correntMin + mFixed) + "");
-            S.setText((60 - correntSec) + "");
-
-        }
+            H.setText((Math.floorDiv(t,3600))+"");
+            M.setText((Math.floorDiv(t,60))+"");
+            S.setText(t%60+"");
+            if (t==1){
+                Intent intent = new Intent(MainActivity.this,
+                        ReminderActivity.class);
+                startActivity(intent);
+            }
     }
 
     @Override

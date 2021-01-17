@@ -35,6 +35,8 @@ public class serviceh extends Service {
     private DataFacade mDataFacade;
     private boolean ECR;
 
+
+
     @Override
     public IBinder onBind(Intent intent) {
         return null;
@@ -62,6 +64,7 @@ public class serviceh extends Service {
 
                         if ((ECR)&(tick > dur)&(!isOutdoor)){
 //                            sendSMSS();
+                            dur = 1000000;
                         }
 
                         if ((tick > mDataFacade.getInt("outdoor_timer")) & (isOutdoor)) {

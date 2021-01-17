@@ -1,4 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--    preferences-->
+    <string-array name="preference_keys">
+        <item>pin</item>
+        <item>ec</item>
+        <item>alarm_duration</item>
+        <item>indoor_ecr</item>
+        <item>outdoor_ecr</item>
+        <item>no_disturb_time_start</item>
+        <item>no_disturb_time_end</item>
+        <item>indoor_timer</item>
+        <item>outdoor_timer</item>
+        <item>volume_adjust</item>
+        <item>volume_out</item>
+        <item>volume_in</item>
+        <item>internet_adjust</item>
+    </string-array>
 
+    <!--    dependencies setting-->
+    <string-array name="pin_dp">
+        <item>alarm_duration</item>
+        <item>indoor_ecr</item>
+        <item>outdoor_ecr</item>
+    </string-array>
+    <string name="pin_ds">-1</string>
+
+    <string-array name="ec_dp">
+        <item>alarm_duration</item>
+        <item>indoor_ecr</item>
+        <item>outdoor_ecr</item>
+    </string-array>
+    <string name="ec_ds">-1</string>
+
+    <string-array name="volume_adjust_dp">
+        <item>volume_out</item>
+        <item>volume_in</item>
+    </string-array>
+    <bool name="volume_adjust_ds">false</bool>
+
+    <!--    max values for integers-->
+    <integer name="outdoor_timer_mx">1440</integer>
+    <integer name="indoor_timer_mx">1440</integer>
+    <integer name="no_disturb_time_end_mx">23</integer>
+    <integer name="no_disturb_time_start_mx">23</integer>
+    <integer name="alarm_duration_mx">60</integer>
+
+
+<!--list preferences values-->
+    <string-array name="volume_modes">
+        <item>"Silent Mode"</item>
+        <item>"Vibration Mode"</item>
+        <item>"Max Volume"</item>
+    </string-array>
+    <string-array name="volume_modes_values">
+        <!-- Do not translate. -->
+        <item>0</item>
+        <!-- Do not translate. -->
+        <item>1</item>
+        <!-- Do not translate. -->
+        <item>2</item>
+    </string-array>
 </resources>
