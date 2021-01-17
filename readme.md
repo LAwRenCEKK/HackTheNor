@@ -31,7 +31,7 @@ As configured, user can open an auto reminder when they stay indoors or outdoors
 - Remind users to go out for some exercise if indoors
 
 ### 3. Reminder++: Emergency Contact Mode
-If user have registered his/her emergency contact number, this app can provide below services to save them from potential danger.
+If user have registered his/her emergency contact number, this app can provide below services to **save them from potential danger.**
 - When the reminder rings, the user need to manually enter the PIN to turn off the reminder alarm; If the alarm failed to be turned off in a certain time period, or if an incorrect PIN is entered, **the app with send a a help message will be sent to the emergency contact.**
 	- Indoor: Especially suitable for people with potential risk of sudden illness and living alone
 		- For example, some old people live alone can be have sudden heart attack, cerebral infarction and etc. If they stay indoor for a long time and be unable to turn off the alarm, perhaps something dangerous already happened.
