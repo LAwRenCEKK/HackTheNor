@@ -80,9 +80,9 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         // todo: make preference activity
-//                        Intent intent = new Intent(MainActivity.this,
-//                                CountDownActivity.class);
-//                        startActivity(intent);
+                        Intent intent = new Intent(MainActivity.this,
+                                SettingActivity.class);
+                        startActivity(intent);
                     }
                 });
 
@@ -122,7 +122,16 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, serviceh.class);
         startService(intent);
-//        setButtonActions();
+
+        ((FloatingActionButton) findViewById(R.id.button_stop_alarm2))
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(MainActivity.this,
+                                ReminderActivity.class);
+                        startActivity(intent);
+                    }
+                });
 
         Thread t = new Thread() {
             @Override
@@ -183,66 +192,6 @@ public class MainActivity extends AppCompatActivity {
         if (ioDetectionHandler != null) {
             ioDetectionHandler.onStop();
         }
-    }
-
-    private void setButtonActions() {
-        ((FloatingActionButton) findViewById(R.id.button_setting))
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(MainActivity.this,
-                                SettingActivity.class);
-                        startActivity(intent);
-                    }
-                });
-
-        ((FloatingActionButton) findViewById(R.id.button_alarm))
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        TimePickerDialog time = new TimePickerDialog(MainActivity.this,
-                                R.style.Float,
-                                new TimePickerDialog.OnTimeSetListener() {
-                                    @Override
-                                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                                        // todo
-                                        Calendar rightNow = Calendar.getInstance();
-                                        int correntHour = rightNow.get(Calendar.HOUR_OF_DAY);
-                                        int correntMin = rightNow.get(Calendar.MINUTE);
-                                        int diffInHour = hourOfDay - correntHour;
-                                        int diffInMin = minute - correntMin;
-                                        int durationInMin = diffInHour*60 + diffInMin;
-                                        Toast.makeText(getApplicationContext(), ""+ diffInHour, Toast.LENGTH_SHORT).show();
-                                        Toast.makeText(getApplicationContext(), ""+ diffInMin, Toast.LENGTH_SHORT).show();
-                                        Toast.makeText(getApplicationContext(), ""+ durationInMin, Toast.LENGTH_SHORT).show();
-                                        duration = durationInMin;
-
-                                        H = findViewById(R.id.hour);
-                                        M = findViewById(R.id.minute);
-                                        S  = findViewById(R.id.second);
-                                        H.setText(hourOfDay+"");
-                                        M.setText(minute+"");
-                                    }
-                                },
-                                0, 30, true
-                        ) {
-                            {
-                                setTitle("Timer Duration, hour:minute");
-                            }
-                        };
-                        time.show();
-                    }
-                });
-
-        ((FloatingActionButton) findViewById(R.id.button_stop_alarm2))
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(MainActivity.this,
-                                ReminderActivity.class);
-                        startActivity(intent);
-                    }
-                });
     }
 
 

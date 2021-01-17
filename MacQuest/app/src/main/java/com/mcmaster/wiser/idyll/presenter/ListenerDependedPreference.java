@@ -18,7 +18,7 @@ public class ListenerDependedPreference extends ListenerSaveData {
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         boolean enableFlag;
-        enableFlag = newValue != disableValue;
+        enableFlag = !(newValue.equals(disableValue));
         for (Preference pref : impactPrefs) {
             pref.setEnabled(enableFlag);
         }

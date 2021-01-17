@@ -45,7 +45,7 @@ public class SettingActivity extends PreferenceActivity {
         for (String key : prefKeys) {
             boolean enableFlag;
             Object value = prefMap.get(key);
-            enableFlag = value != findDisableValue(key);
+            enableFlag = !(value.equals(findDisableValue(key)));
             for (Preference pref : findDependents(key)) {
                 pref.setEnabled(enableFlag);
             }
@@ -65,7 +65,7 @@ public class SettingActivity extends PreferenceActivity {
         Resources res = getResources();
         Map<String, String[]> dependencies = new HashMap<String, String[]>();
         for (String key : prefKeys) {
-            int id = res.getIdentifier(key + "_dp", "string", getPackageName());
+            int id = res.getIdentifier(key + "_dp", "array", getPackageName());
             if (id != 0) {
                 String[] values = res.getStringArray(id);
                 dependencies.put(key, values);
@@ -128,7 +128,7 @@ public class SettingActivity extends PreferenceActivity {
     }
 
     private Object findDisableValue(String key) {
-        if (dependencies.containsKey(key)) {
+        if (disableValues.containsKey(key)) {
             return disableValues.get(key);
         } else {
             return null;

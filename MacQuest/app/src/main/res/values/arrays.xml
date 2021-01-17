@@ -23,14 +23,14 @@
         <item>indoor_ecr</item>
         <item>outdoor_ecr</item>
     </string-array>
-    <integer name="pin_ds">-1</integer>
+    <string name="pin_ds">-1</string>
 
     <string-array name="ec_dp">
         <item>alarm_duration</item>
         <item>indoor_ecr</item>
         <item>outdoor_ecr</item>
     </string-array>
-    <integer name="ec_ds">-1</integer>
+    <string name="ec_ds">-1</string>
 
     <string-array name="volume_adjust_dp">
         <item>volume_out</item>
@@ -52,12 +52,12 @@
         <item>"Vibration Mode"</item>
         <item>"Max Volume"</item>
     </string-array>
-    <integer-array name="volume_modes_values">
+    <string-array name="volume_modes_values">
         <!-- Do not translate. -->
         <item>0</item>
         <!-- Do not translate. -->
         <item>1</item>
         <!-- Do not translate. -->
         <item>2</item>
-    </integer-array>
+    </string-array>
 </resources>

@@ -22,13 +22,12 @@ public class ListenerSaveData implements Preference.OnPreferenceChangeListener {
             }
         }else if(newValue instanceof String){
             try {
-                Integer.parseInt(((String) newValue));
+                cast = Integer.parseInt(((String) newValue));
             }catch (Exception e){
                 cast = -1;
             }
         }
         dataFacade.setInt(preference.getKey(), cast);
-        System.out.println("changed "+newValue+"   cast to "+cast);
         return true;
     }
 }
