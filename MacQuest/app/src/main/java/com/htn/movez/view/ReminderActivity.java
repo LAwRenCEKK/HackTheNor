@@ -1,9 +1,6 @@
-package com.mcmaster.wiser.idyll.view;
+package com.htn.movez.view;
 
 import android.content.Intent;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Vibrator;
 import android.support.annotation.RequiresApi;
@@ -16,14 +13,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.mcmaster.wiser.idyll.R;
-import com.mcmaster.wiser.idyll.model.iodetection.DataFacade;
-
-import org.w3c.dom.Text;
+import com.htn.movez.R;
+import com.htn.movez.iodetection.DataFacade;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 /**
  * The activity that is called when the reminder happens.

@@ -1,4 +1,4 @@
-package com.mcmaster.wiser.idyll.view;
+package com.htn.movez.view;
 
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -6,12 +6,10 @@ import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+import com.htn.movez.R;
+import com.htn.movez.iodetection.DataFacade;
+import com.htn.movez.presenter.ListenerDependedPreference;
 
-import com.mcmaster.wiser.idyll.R;
-import com.mcmaster.wiser.idyll.model.iodetection.DataFacade;
-import com.mcmaster.wiser.idyll.presenter.ListenerDependedPreference;
-
-import java.security.spec.ECField;
 import java.util.HashMap;
 import java.util.Map;
 

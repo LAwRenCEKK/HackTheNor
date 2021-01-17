@@ -4,7 +4,7 @@
 //
 // Timestamp: Tue Jun 20 14:19:29 EDT 2017
 
-package com.mcmaster.wiser.idyll.model.iodetection.classifier;
+package com.htn.movez.iodetection.classifier;
 
 import weka.classifiers.AbstractClassifier;
 import weka.core.Capabilities;

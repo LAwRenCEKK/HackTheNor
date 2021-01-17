@@ -1,4 +1,4 @@
-package com.mcmaster.wiser.idyll.presenter;
+package com.htn.movez.presenter;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,8 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mcmaster.wiser.idyll.R;
-import com.mcmaster.wiser.idyll.view.MainActivity;
+import com.htn.movez.R;
 
 /**
  * A simple {@link Fragment} subclass.

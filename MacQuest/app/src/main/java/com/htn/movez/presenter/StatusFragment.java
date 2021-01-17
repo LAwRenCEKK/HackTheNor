@@ -1,4 +1,4 @@
-package com.mcmaster.wiser.idyll.presenter;
+package com.htn.movez.presenter;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mcmaster.wiser.idyll.R;
+import com.htn.movez.R;
 
 /**
  * A simple {@link Fragment} subclass.

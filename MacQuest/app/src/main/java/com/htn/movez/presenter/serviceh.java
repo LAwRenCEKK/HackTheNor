@@ -1,4 +1,4 @@
-package com.mcmaster.wiser.idyll.view;
+package com.htn.movez.presenter;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -13,13 +13,13 @@ import android.os.IBinder;
 import android.telephony.SmsManager;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.TextView;
 
-import com.mcmaster.wiser.idyll.R;
-import com.mcmaster.wiser.idyll.model.iodetection.IODetectionHandler;
-import com.mcmaster.wiser.idyll.model.iodetection.DataFacade;
 
-import com.mcmaster.wiser.idyll.presenter.CountDownFragment;
+import com.htn.movez.R;
+import com.htn.movez.iodetection.IODetectionHandler;
+import com.htn.movez.iodetection.DataFacade;
+
+import com.htn.movez.view.MainActivity;
 
 import java.util.ArrayList;
 
